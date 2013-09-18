@@ -111,3 +111,49 @@ alias c='clear'
 # vim!
 export EDITOR=vim 
 
+### Note taking
+export NOTES_DIR=~/Dropbox/notes
+# Create/edit notes
+n() {
+	$EDITOR $NOTES_DIR/"$*".md
+}
+
+# Edit file given index to last query
+nne() {
+	$EDITOR $NOTES_DIR/`awk "NR==$1" $NOTES_DIR/files.txt`
+}
+
+# View note given name
+nv() {
+	markdown $NOTES_DIR/$*.md | lynx -stdin
+}
+
+# View note given index to last query
+nnv() {
+	markdown $NOTES_DIR/`awk "NR==$1" $NOTES_DIR/files.txt` | lynx -stdin
+}
+
+# Search for a tag, display files
+nft() {
+	export NOTES_PWD=`pwd`
+	cd $NOTES_DIR/
+	grep -l "#$*" *.md | tee files.txt | paste - <(head -q -n 1 `cat files.txt`) | nl
+	cd $NOTES_PWD
+}
+
+# Generate all files, including an index
+ng() {
+	echo "<html><head><title>Index</title></head><body><ul>" > $NOTES_DIR/index.html
+	for f in $NOTES_DIR/*.md
+	do
+		f2=${f%.*}.html
+		markdown $f > $f2
+		echo "<li><a href=$f2>`head -1 $f`</a>" >> $NOTES_DIR/index.html	
+	done
+	echo "</ul></body></html>" >> $NOTES_DIR/index.html
+}
+
+nls () {
+	tree -CR --noreport $NOTES_DIR -P *.md | awk '{ if ((NR > 1) gsub(/.md/,"")); \
+	if (NF==1) print $1; else if (NF==2) print $2; else if (NF==3) printf "  %s\n", $3 }' ;
+}
