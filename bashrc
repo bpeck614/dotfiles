@@ -108,3 +108,6 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 alias c='clear'
 
+# vim!
+export EDITOR=vim 
+
