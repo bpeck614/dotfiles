@@ -136,8 +136,26 @@ nnv() {
 # Search for a tag, display files
 nft() {
 	export NOTES_PWD=`pwd`
+	und=`tput smul`
+	nound=`tput rmul`
 	cd $NOTES_DIR/
-	grep -l "#$*" *.md | tee files.txt | paste - <(head -q -n 1 `cat files.txt`) | nl
+	grep -l "#$*" *.md > files.txt
+	let i=1
+	echo ""
+	printf "%2s %-13.13s %-39.39s %-44.44s %s\n" \
+		"${und}ID${nound}" "${und}File" "${nound} ${und}Title" "${nound} ${und}Tags" "${nound}"
+	printf "\033[3;31m"
+	for f in `cat files.txt`
+	do
+		f2=${f%.*}
+		title=`head -q -n 1 $f | cut -d"#" -f2-`
+		tags=`grep Tags $f | cut -d"#" -f2- --output-delimiter=""`
+		printf "%2d %-10s %-30.30s %-35.35s\n" \
+			$i $f2 "$title" "$tags"
+		let "i=$i+1"
+	done
+	printf "\033[0m "
+	echo ""
 	cd $NOTES_PWD
 }
 
