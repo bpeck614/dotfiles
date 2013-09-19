@@ -144,15 +144,20 @@ nft() {
 	echo ""
 	printf "%2s %-13.13s %-39.39s %-44.44s %s\n" \
 		"${und}ID${nound}" "${und}File" "${nound} ${und}Title" "${nound} ${und}Tags" "${nound}"
-	printf "\033[3;31m"
+	echo -en '\e[0;31m'
 	for f in `cat files.txt`
 	do
+		if [ $(( $i % 2 )) -eq 0 ]
+		then
+			echo -en '\e[48;5;0m'
+		fi
 		f2=${f%.*}
 		title=`head -q -n 1 $f | cut -d"#" -f2-`
 		tags=`grep Tags $f | cut -d"#" -f2- --output-delimiter=""`
-		printf "%2d %-10s %-30.30s %-35.35s\n" \
+		printf "%2d %-10s %-30.30s %-35.35s" \
 			$i $f2 "$title" "$tags"
 		let "i=$i+1"
+		echo -e '\e[0;31m'
 	done
 	printf "\033[0m "
 	echo ""
@@ -169,6 +174,7 @@ ng() {
 		echo "<li><a href=$f2>`head -1 $f`</a>" >> $NOTES_DIR/index.html	
 	done
 	echo "</ul></body></html>" >> $NOTES_DIR/index.html
+	lynx $NOTES_DIR/index.html
 }
 
 nls () {
