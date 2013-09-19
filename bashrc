@@ -164,17 +164,30 @@ nft() {
 	cd $NOTES_PWD
 }
 
-# Generate all files, including an index
+# Generate all files (or subset), including an index
 ng() {
-	echo "<html><head><title>Index</title></head><body><ul>" > $NOTES_DIR/index.html
-	for f in $NOTES_DIR/*.md
+	export NOTES_PWD=`pwd`
+	cd $NOTES_DIR/
+	if [ -z $* ]; then
+		ls *.md > files.txt
+	else
+		grep -l "#$*" *.md > files.txt
+	fi
+	echo "<html><head><title>Index</title></head><body><table>" > $NOTES_DIR/index.html
+	echo "<tr><th>Name</th><th>Title</th><th>Tags</th></tr>" >> $NOTES_DIR/index.html
+	for f in `cat files.txt`
 	do
-		f2=${f%.*}.html
-		markdown $f > $f2
-		echo "<li><a href=$f2>`head -1 $f`</a>" >> $NOTES_DIR/index.html	
+		f2=${f%.*}
+		title=`head -q -n 1 $f | cut -d"#" -f2-`
+		tags=`grep Tags $f | cut -d"#" -f2- --output-delimiter=""`
+		if [ $f -nt $f2.html ]; then 
+			markdown $f > $f2.html
+		fi
+		echo "<tr><td><a href=$f2.html>$f2</a></td><td>$title</td><td>$tags</td></tr>" >> $NOTES_DIR/index.html	
 	done
-	echo "</ul></body></html>" >> $NOTES_DIR/index.html
+	echo "</table></body></html>" >> $NOTES_DIR/index.html
 	lynx $NOTES_DIR/index.html
+	cd $NOTES_PWD
 }
 
 nls () {
