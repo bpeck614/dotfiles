@@ -125,3 +125,4 @@ function parse_git_branch {
 export PS1='\[\]\w\[\e[0m\] $(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[1;33m\]$(parse_git_dirty)\[\e[0m\]]")\$ \[\e[0m\]'
 
 alias gd='git diff --color'
+alias gst='git status'
