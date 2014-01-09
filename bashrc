@@ -126,3 +126,9 @@ export PS1='\[\]\w\[\e[0m\] $(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[1;33m\]$(p
 
 alias gd='git diff --color'
 alias gst='git status'
+
+# Function to make reveal slides with pandoc
+panrev() {
+	~/.cabal/bin/pandoc -t revealjs -s $1.md -o $1.html --slide-level 2
+	#~/.cabal/bin/pandoc -t revealjs -s $1 -o $2 --slide-level 2 --css slides.css
+}
