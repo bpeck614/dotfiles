@@ -129,6 +129,10 @@ alias gst='git status'
 
 # Function to make reveal slides with pandoc
 panrev() {
-	~/.cabal/bin/pandoc -t revealjs -s $1.md -o $1.html --slide-level 2
-	#~/.cabal/bin/pandoc -t revealjs -s $1 -o $2 --slide-level 2 --css slides.css
+	~/.cabal/bin/pandoc -t revealjs -s $1.md -o $1.html --slide-level 2 -V revealjs-url:../reveal.js --css ../slides.css
+}
+
+# Function to make beamer slides with pandoc
+panbeam() {
+	~/.cabal/bin/pandoc -t beamer -o $1.pdf $1.md --slide-level 2 -V theme:Berlin -V colortheme:beaver
 }
