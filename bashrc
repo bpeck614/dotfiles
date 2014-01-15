@@ -132,7 +132,40 @@ panrev() {
 	~/.cabal/bin/pandoc -t revealjs -s $1.md -o $1.html --slide-level 2 -V revealjs-url:../reveal.js --css ../slides.css
 }
 
-# Function to make beamer slides with pandoc
+# Function to make beamer slides with pandoc, and notes for pdfpc
 panbeam() {
 	~/.cabal/bin/pandoc -t beamer -o $1.pdf $1.md --slide-level 2 -V theme:Berlin -V colortheme:beaver
+
+	# Track current slide number, and whether we are viewing a comment
+	let slide=1
+	let comment=0
+	file=$1.pdfpc
+	echo "[file]" > $file
+	echo "$1.pdf" >> $file
+	echo "[notes]" >> $file
+
+	# Loop through every line in input
+	while read p; do
+		# If in a comment, check exit. Else, print comment for note
+        	if [ $comment -eq 1 ] ;
+        	then
+        	        if [[ $p == "-->" ]] ;
+        	        then
+        	                let comment=0
+        	                continue
+        	        fi
+        	        echo $p >> $file
+        	fi
+		# Check for new slide markers - # and >
+        	if [[ $p == "# "* ]] || [[ $p == "## "* ]] || [[ $p == \>* ]] ;
+        	then
+        	        let slide=slide+1
+        	fi
+		# Once we start a comment, print info for pdpfpc
+        	if [[ $p == "<!---"* ]] ;
+        	then
+        	        echo "### $slide" >> $file
+        	        let comment=1
+        	fi
+	done < $1.md
 }
