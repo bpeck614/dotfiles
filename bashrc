@@ -157,7 +157,7 @@ panbeam() {
         	        echo $p >> $file
         	fi
 		# Check for new slide markers - # and >
-        	if [[ $p == "# "* ]] || [[ $p == "## "* ]] || [[ $p == \>* ]] ;
+        	if [[ $p == "# "* ]] || [[ $p == "## "* ]] ;
         	then
         	        let slide=slide+1
         	fi
