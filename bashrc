@@ -109,7 +109,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 alias c='clear'
 
 # vim!
-export EDITOR=subl
+export EDITOR=vim
 export PDF_VIEWER=evince
 
 source ~/dotfiles/notes/note.sh
