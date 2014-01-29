@@ -169,3 +169,7 @@ panbeam() {
         	fi
 	done < $1.md
 }
+
+# Ruby RVM stuff
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+source ~/.rvm/scripts/rvm
