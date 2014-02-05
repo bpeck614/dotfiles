@@ -170,6 +170,11 @@ panbeam() {
 	done < $1.md
 }
 
+# Create beamer handouts with pandoc, no pdfpc notes.
+panbeam_hand() {
+	~/.cabal/bin/pandoc -t beamer -o $1.pdf $1.md --slide-level 2 -V theme:Berlin -V colortheme:beaver -V handout:handout
+}
+
 # Ruby RVM stuff
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm
