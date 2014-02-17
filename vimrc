@@ -5,7 +5,7 @@ set number
 syntax on
 
 set nofoldenable
-set foldmethod=indent
+set foldmethod=syntax
 
 " Status Line Stuff
 set laststatus=2
@@ -32,7 +32,7 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-markdown'
+Bundle 'plasticboy/vim-markdown'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'flazz/vim-colorschemes'
 
