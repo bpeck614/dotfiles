@@ -18,8 +18,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extension#tabline#fnamemod = ':t'
 
 " Better line navigation with wrapped lines
-noremap j gj
-noremap k gk
+nnoremap j gj
+nnoremap k gk
 
 " Vundle Setup
 set nocompatible
