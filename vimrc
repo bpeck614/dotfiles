@@ -1,11 +1,12 @@
-au BufRead,BufNewFile *.md set filetype=markdown
 
 set encoding=utf-8
+set relativenumber
 set number
 syntax on
 
 set nofoldenable
 set foldmethod=syntax
+let g:vim_markdown_initial_foldlevel = 1
 
 " Status Line Stuff
 set laststatus=2
@@ -38,7 +39,11 @@ Bundle 'flazz/vim-colorschemes'
 
 set background=dark
 set t_Co=256
-colorscheme desert
+colorscheme solarized
+
+" autocmd!
+au BufWritePost $NOTES_DIR/*.md silent ! pandoc -o $NOTES_DIR/pdf/<afile>:t:r.pdf <afile>:p
+au BufRead,BufNewFile *.md set filetype=markdown
 
 " filetype back on
 filetype on
