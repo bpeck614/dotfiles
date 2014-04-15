@@ -4,6 +4,10 @@ set relativenumber
 set number
 syntax on
 
+" Directory specific .vimrc
+set exrc
+set secure
+
 set nofoldenable
 set foldmethod=syntax
 let g:vim_markdown_initial_foldlevel = 1
@@ -36,10 +40,23 @@ Bundle 'bling/vim-airline'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'flazz/vim-colorschemes'
+Bundle 'tpope/vim-dispatch'
 
-set background=dark
-set t_Co=256
+ set background=dark
+"set t_Co=256
 colorscheme solarized
+
+" tabs
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" leader
+let mapleader=","
+
+" newline: find period, delete trailing whitespace, insert newline
+nmap <Leader>nl /\. <cr>ldWi<cr><ESC>
 
 " autocmd!
 au BufWritePost $NOTES_DIR/*.md silent ! pandoc -o $NOTES_DIR/pdf/<afile>:t:r.pdf <afile>:p
