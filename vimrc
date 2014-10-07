@@ -30,7 +30,7 @@ nnoremap k gk
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -43,9 +43,9 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'tpope/vim-dispatch'
 Bundle 'jnwhiteh/vim-golang'
 
- set background=dark
-"set t_Co=256
-colorscheme solarized
+set background=dark
+set t_Co=256
+colorscheme jellybeans
 
 " tabs
 set smartindent
