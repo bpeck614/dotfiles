@@ -66,5 +66,7 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 au BufRead,BufNewFile *.tikz set filetype=tex
 
+au BufRead,BufNewFile *.tex setlocal spell
+
 " filetype back on
 filetype on
